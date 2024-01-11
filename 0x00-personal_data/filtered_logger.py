@@ -2,9 +2,12 @@
 
 """Function filter_datum that returns the log message obfuscated"""
 
+import os
 from typing import List, Tuple
 import logging
 import re
+
+import mysql.connector
 
 PII_FIELDS: Tuple = ('name', 'email', 'phone', 'ssn', 'password')
 
@@ -58,3 +61,20 @@ def get_logger() -> logging.Logger:
     logger.propagate = False
     logger.addHandler(handler)
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """
+    Returns a connector to the database (mysql.connector.
+    connection.MySQLConnection object
+    """
+
+    connection = mysql.connector.connect(
+        host=os.getenv("PERSONAL_DATA_DB_HOST"),
+        database=os.getenv("PERSONAL_DATA_DB_NAME"),
+        user=os.getenv("PERSONAL_DATA_DB_USERNAME"),
+        password=os.getenv("PERSONAL_DATA_DB_PASSWORD")
+
+    )
+
+    return connection
