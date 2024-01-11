@@ -78,6 +78,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
     return connection
 
+
 def main() -> None:
     db_connection = get_db()
     logger = get_logger()
@@ -87,8 +88,9 @@ def main() -> None:
 
     for row in rows:
         msg = (
-            f"name={row[0]}; email={row[1]}; phone={row[2]}; ssn={row[3]}; "
-            f"password={row[4]}; ip={row[5]}; last_login={row[6]}; user_agent={row[7]};"
+            f"name={row[0]}; email={row[1]}; phone={row[2]}; "
+            f"ssn={row[3]}; password={row[4]}; ip={row[5]}; "
+            f"last_login={row[6]}; user_agent={row[7]};"
         )
 
         logger.info(msg)
