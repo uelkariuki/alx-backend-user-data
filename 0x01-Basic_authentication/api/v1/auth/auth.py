@@ -11,7 +11,16 @@ class Auth:
     """"Manage API authentication"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """public method require_auth"""
-        return False
+        if excluded_paths is None or path is None:
+            return True
+        if len(excluded_paths) == 0:
+            return True
+        normal_path = path.rstrip('/')
+        normal_excluded_path = [p.rstrip('/') for p in excluded_paths]
+
+        if normal_path in normal_excluded_path:
+            return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """public method authorization_header"""
