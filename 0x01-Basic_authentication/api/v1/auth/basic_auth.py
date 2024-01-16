@@ -78,16 +78,13 @@ class BasicAuth(Auth):
         if user_pwd is None or type(user_pwd) is not str:
             return None
 
-        user_email = user_email.strip().lower()
-        user_pwd = user_pwd.strip()
-        
         users = User.search({'email': user_email})
         if not users:
             return None
         for user in users:
             if user.is_valid_password(user_pwd):
                 return user
-        return None
+            return None
 
 
 def check_if_valid_base64(base64_authorization_header):
