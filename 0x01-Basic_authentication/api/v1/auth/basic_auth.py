@@ -6,8 +6,10 @@ Basic auth class that inherits from Auth
 
 import base64
 import binascii
+from typing import TypeVar
 from flask import request
 from api.v1.auth.auth import Auth
+from models.user import User
 
 
 class BasicAuth(Auth):
@@ -65,6 +67,23 @@ class BasicAuth(Auth):
             user_details = tuple(decoded_base64_authorization_header.split(
                 ':'))
             return user_details
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """
+        Returns the User instance based on his email and password
+        """
+        if user_email is None or type(user_email) is not str:
+            return None
+        if user_pwd is None or type(user_pwd) is not str:
+            return None
+        users = User.search({'email': user_email})
+        if User is not None and not users:
+            return None
+        for user in users:
+            if user.is_valid_password(user_pwd) is False:
+                return None
+        return user
 
 
 def check_if_valid_base64(base64_authorization_header):
