@@ -20,6 +20,7 @@ if os.getenv('AUTH_TYPE') == 'auth':
 
 @app.before_request
 def before_request_method():
+    """"Before request method"""
     if auth is None:
         return
 
