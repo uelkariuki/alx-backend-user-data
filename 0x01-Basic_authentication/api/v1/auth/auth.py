@@ -15,15 +15,14 @@ class Auth:
             return True
         if len(excluded_paths) == 0:
             return True
-        path = path.strip('/')
-
-        for excluded_path in excluded_paths:
-            excluded_path = excluded_path.rstrip('/')
-            if excluded_path.endswith('*') and path.startswith(
-                                                excluded_path[:-1]):
+        has_star_result = [excluded_path[:-1]
+                           for excluded_path in excluded_paths
+                           if excluded_path[-1] == '*']
+        for excluded_path in has_star_result:
+            if path.startswith(excluded_path):
                 return False
 
-        if path == excluded_path:
+        if path in excluded_paths:
             return False
         return True
 
