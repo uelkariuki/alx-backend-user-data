@@ -23,7 +23,7 @@ class Auth:
                                                 excluded_path[:-1]):
                 return False
 
-        if path == excluded_paths:
+        if path in excluded_paths:
             return False
         return True
 
