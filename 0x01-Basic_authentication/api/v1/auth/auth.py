@@ -16,10 +16,10 @@ class Auth:
         if len(excluded_paths) == 0:
             return True
         if path[-1] != '/':
-            path = path + '/'
+            path += '/'
         if excluded_paths[-1] != '/':
-            excluded_paths = excluded_paths + '/'
-        
+            excluded_paths += '/'
+
         has_star_result = [excluded_path[:-1]
                            for excluded_path in excluded_paths
                            if excluded_path[-1] == '*']
