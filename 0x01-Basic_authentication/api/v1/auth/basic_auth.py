@@ -67,7 +67,7 @@ class BasicAuth(Auth):
         else:
             # user_details entails the user email and password
             user_details = tuple(decoded_base64_authorization_header.split(
-                ':'))
+                ':', 1))
             return user_details
 
     def user_object_from_credentials(
