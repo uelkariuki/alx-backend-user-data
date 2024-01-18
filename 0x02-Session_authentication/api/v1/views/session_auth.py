@@ -7,7 +7,7 @@ authentication
 
 from api.v1.views import app_views
 import os
-from flask import request, jsonify, session
+from flask import request, jsonify, session, abort
 from models.user import User
 
 
@@ -37,3 +37,18 @@ def auth_session_login() -> str:
             response = jsonify(user.to_json())
             response.set_cookie(session_name, session_id)
             return response
+
+
+@app_views.route('auth_session/logout', methods=['DELETE'],
+                 strict_slashes=False)
+def logout():
+    """ DELETE /api/v1/auth_session/logout
+      - Deletes the user session /logout
+    """
+    from api.v1.app import auth
+    destroy_session = auth.destroy_session(request)
+
+    if destroy_session is False:
+        abort(404)
+    else:
+        return jsonify({}), 200
