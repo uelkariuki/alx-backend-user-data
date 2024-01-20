@@ -37,15 +37,15 @@ class SessionDBAuth(SessionExpAuth):
             return None
         UserSession.load_from_file()
         user_sessions = UserSession.search({'session_id': session_id})
-
+        if len(user_sessions) == 0:
+            return None
         if self.session_duration <= 0:
             return user_sessions[0].user_id
         created_at = user_sessions[0].created_at
         if (created_at +
-            timedelta(seconds=self.session_duration)) < datetime.utcnow():
+                timedelta(seconds=self.session_duration)) < datetime.utcnow():
             return None
         return user_sessions[0].user_id
-
 
     def destroy_session(self, request=None):
         """ overload destroy session
@@ -58,6 +58,8 @@ class SessionDBAuth(SessionExpAuth):
         if not session_id:
             return False
         user_session = UserSession.search({'session_id': session_id})
+        if len(user_session) == 0:
+            return None
         del self.user_id_by_session_id[session_id]
         user_session[0].remove()
         return True
