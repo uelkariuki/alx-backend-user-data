@@ -3,6 +3,8 @@
 """ class SessionDBAuth
 """
 
+from datetime import timedelta
+import datetime
 from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
 
@@ -32,10 +34,19 @@ class SessionDBAuth(SessionExpAuth):
         Returns the User ID by requesting UserSession in the database
         based on session_id
         """
+        if session_id is None:
+            return None
+        UserSession.load_from_file()
         user_sessions = UserSession.search({'session_id': session_id})
-        if user_sessions:
+
+        if self.session_duration <= 0:
             return user_sessions[0].user_id
-        return None
+        created_at = user_sessions[0].created_at
+        if (created_at +
+            timedelta(seconds=self.session_duration)) < datetime.utcnow():
+            return None
+        return user_sessions[0].user_id
+
 
     def destroy_session(self, request=None):
         """ overload destroy session
@@ -48,7 +59,6 @@ class SessionDBAuth(SessionExpAuth):
         if not session_id:
             return False
         user_session = UserSession.search({'session_id': session_id})
-        if user_session:
-            user_session[0].remove()
-            return True
-        return False
+        del self.user_id_by_session_id[session_id]
+        user_session[0].remove()
+        return True
