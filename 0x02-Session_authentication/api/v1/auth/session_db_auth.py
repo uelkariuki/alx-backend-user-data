@@ -28,9 +28,15 @@ class SessionDBAuth(SessionExpAuth):
     def user_id_for_session_id(self, session_id=None):
         """ overload user_id_for_session_id
         """
-        pass
+        user_id = UserSession.search({'session_id': session_id})
+        if not user_id:
+            return None
+        return user_id
 
     def destroy_session(self, request=None):
         """ overload destroy session
         """
-        pass
+        session_id = self.session_cookie(request)
+        user_session = UserSession.search({'session_id': session_id})
+        if user_session:
+            del user_session
