@@ -32,9 +32,9 @@ class SessionDBAuth(SessionExpAuth):
         Returns the User ID by requesting UserSession in the database
         based on session_id
         """
-        user_id = UserSession.search({'session_id': session_id})
-        if user_id:
-            return user_id
+        user_sessions = UserSession.search({'session_id': session_id})
+        if user_sessions:
+            return user_sessions[0].user_id
         return None
 
     def destroy_session(self, request=None):
