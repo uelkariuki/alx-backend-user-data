@@ -3,8 +3,7 @@
 """ class SessionDBAuth
 """
 
-from datetime import timedelta
-import datetime
+from datetime import timedelta, datetime
 from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
 
