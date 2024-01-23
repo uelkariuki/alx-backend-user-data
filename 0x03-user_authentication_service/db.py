@@ -46,11 +46,6 @@ class DB:
         Returns the first row found in the users table as filtered
         by the method's input arguments
         """
-        allowed_keys = {'id', 'email', 'hashed_password', 'reset_token',
-                        'session_id'}
-        invalid_keys = set(kwargs) - allowed_keys
-        if invalid_keys:
-            raise InvalidRequestError
         try:
             user = self._session.query(User).filter_by(**kwargs).one()
             return user
