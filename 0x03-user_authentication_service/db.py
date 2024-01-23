@@ -49,7 +49,7 @@ class DB:
         allowed_keys = {'id', 'email', 'hashed_password', 'reset_token', 'session_id'}
         invalid_keys = set(kwargs) - allowed_keys
         if invalid_keys:
-            raise InvalidRequestError
+            raise InvalidRequestError(f"Invalid keys: {invalid_keys}")
         try:
             user = self._session.query(User).filter_by(**kwargs).one()
             return user
