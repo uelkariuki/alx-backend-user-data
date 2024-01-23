@@ -41,15 +41,16 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """
         Returns the first row found in the users table as filtered
         by the method's input arguments
         """
-        allowed_keys = {'id', 'email', 'hashed_password', 'reset_token', 'session_id'}
+        allowed_keys = {'id', 'email', 'hashed_password', 'reset_token',
+                        'session_id'}
         invalid_keys = set(kwargs) - allowed_keys
         if invalid_keys:
-            raise InvalidRequestError(f"Invalid keys: {invalid_keys}")
+            raise InvalidRequestError
         try:
             user = self._session.query(User).filter_by(**kwargs).one()
             return user
