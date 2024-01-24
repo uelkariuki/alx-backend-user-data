@@ -93,10 +93,10 @@ def get_reset_password_token():
 def update_password():
     """ PUT /reset_password
     """
+    email = request.form.get('email')
+    reset_token = request.form.get('reset_token')
+    new_password = request.form.get('new_password')
     try:
-        email = request.form.get('email')
-        reset_token = request.form.get('reset_token')
-        new_password = request.form.get('new_password')
 
         AUTH.update_password(reset_token, new_password)
         return jsonify({"email": f'{email}',
