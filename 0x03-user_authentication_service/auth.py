@@ -45,7 +45,7 @@ class Auth:
                                      hashed_password=hashed_password)
             return user
 
-    def valid_login(self, email: str, password: str):
+    def valid_login(self, email: str, password: str) -> bool:
         """
         Credentials validation
         """
