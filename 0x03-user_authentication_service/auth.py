@@ -4,6 +4,7 @@
 Auth
 """
 
+import uuid
 import bcrypt
 from db import DB
 from user import User
@@ -60,3 +61,10 @@ class Auth:
                 return False
         except Exception:
             return False
+
+    def _generate_uuid() -> str:
+        """
+        Return a string representation of a new UUID
+        """
+        new_uuid = str(uuid.uuid4())
+        return new_uuid
