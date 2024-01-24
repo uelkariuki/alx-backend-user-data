@@ -12,12 +12,12 @@ AUTH = Auth()
 
 
 @app.route("/", strict_slashes=False)
-def message():
+def message() -> str:
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route("/users", methods=['POST'], strict_slashes=False)
-def users():
+def users() -> str:
     """
     End-point to register a user
     """
@@ -64,7 +64,7 @@ def logout():
 
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
-def profile():
+def profile() -> str:
     """ GET /profile
     """
     session_id = request.cookies.get('session_id')
@@ -76,7 +76,7 @@ def profile():
 
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
-def get_reset_password_token():
+def get_reset_password_token() -> str:
     """ POST /reset_password
     """
     try:
