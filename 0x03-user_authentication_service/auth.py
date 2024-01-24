@@ -62,9 +62,9 @@ class Auth:
         except Exception:
             return False
 
-    def _generate_uuid() -> str:
-        """
-        Return a string representation of a new UUID
-        """
-        new_uuid = str(uuid.uuid4())
-        return new_uuid
+def _generate_uuid() -> str:
+    """
+    Return a string representation of a new UUID
+    """
+    new_uuid = str(uuid.uuid4())
+    return new_uuid
