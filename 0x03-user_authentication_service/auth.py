@@ -4,7 +4,7 @@
 Auth
 """
 
-from typing import Union
+from typing import Optional
 import uuid
 import bcrypt
 from db import DB
@@ -77,13 +77,13 @@ class Auth:
         except NoResultFound:
             return None
 
-    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
+    def get_user_from_session_id(self, session_id: str) -> Optional[User]:
         """ Find user by session ID
         """
         if session_id is None:
             return None
         user = self._db.find_user_by(session_id=session_id)
-        if not user:
+        if NoResultFound:
             return None
         return user
 
