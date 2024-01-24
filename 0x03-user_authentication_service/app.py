@@ -13,6 +13,8 @@ AUTH = Auth()
 
 @app.route("/", strict_slashes=False)
 def message() -> str:
+    """ message method
+    """
     return jsonify({"message": "Bienvenue"})
 
 
