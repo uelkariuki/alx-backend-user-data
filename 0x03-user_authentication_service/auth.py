@@ -4,6 +4,7 @@
 Auth
 """
 
+from typing import Optional
 import uuid
 import bcrypt
 from db import DB
@@ -75,6 +76,16 @@ class Auth:
                 return session_id
         except NoResultFound:
             return None
+
+    def get_user_from_session_id(self, session_id: str) -> Optional[User]:
+        """ Find user by session ID
+        """
+        if session_id is None:
+            return None
+        user = self._db.find_user_by(session_id)
+        if not user:
+            return None
+        return user
 
 
 def _generate_uuid() -> str:
