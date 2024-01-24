@@ -79,13 +79,14 @@ def profile():
 def get_reset_password_token():
     """ POST /reset_password
     """
-    email = request.form.get('email')
-    if not email:
-        abort(403)
-    else:
+    try:
+        email = request.form.get('email')
+
         reset_token = AUTH.get_reset_password_token(email)
         return jsonify({"email": f"{email}",
                         "reset_token": f"{reset_token}"}), 200
+    except Exception:
+        abort(403)
 
 
 if __name__ == "__main__":
