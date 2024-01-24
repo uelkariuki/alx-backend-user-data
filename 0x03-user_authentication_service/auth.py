@@ -93,10 +93,9 @@ class Auth:
         Destroy session
         """
 
-        user = self._db.find_user_by(user_id=user_id)
+        user = self._db.find_user_by(id=user_id)
         if user:
             self._db.update_user(user.id, session_id=None)
-			return None
 
 def _generate_uuid() -> str:
     """
