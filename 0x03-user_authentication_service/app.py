@@ -72,7 +72,7 @@ def profile():
     if not user or not session_id:
         abort(403)
     if user:
-        jsonify({"email": f"{user.email}"}), 200
+        return jsonify({"email": f"{user.email}"}), 200
 
 
 if __name__ == "__main__":
