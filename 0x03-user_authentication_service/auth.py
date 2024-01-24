@@ -88,6 +88,15 @@ class Auth:
         except NoResultFound:
             return None
 
+    def destroy_session(self, user_id: int) -> None:
+        """
+        Destroy session
+        """
+
+        user = self._db.find_user_by(user_id=user_id)
+        if user:
+            user.session_id = None
+            return None
 
 def _generate_uuid() -> str:
     """
