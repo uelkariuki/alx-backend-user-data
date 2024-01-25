@@ -31,3 +31,4 @@
 | 17. Get reset password token | [app.py](./app.py) |
 | 18. Update password | [auth.py](./auth.py) |
 | 19. Update password end-point | [app.py](./app.py) |
+| 20. End-to-end integration test | [main.py](./main.py) |
