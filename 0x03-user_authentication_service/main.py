@@ -4,11 +4,13 @@
 End-to-end integration test
 """
 
+
 def register_user(email: str, password: str) -> None:
     """
     Test register_user method
     """
     assert True
+
 
 def log_in_wrong_password(email: str, password: str) -> None:
     """
@@ -16,11 +18,13 @@ def log_in_wrong_password(email: str, password: str) -> None:
     """
     assert True
 
+
 def log_in(email: str, password: str) -> str:
     """
     Test log_in method
     """
     assert True
+
 
 def profile_unlogged() -> None:
     """
@@ -28,11 +32,13 @@ def profile_unlogged() -> None:
     """
     assert True
 
+
 def profile_logged(session_id: str) -> None:
     """
     Test profile_logged method
     """
     assert True
+
 
 def log_out(session_id: str) -> None:
     """
@@ -40,11 +46,13 @@ def log_out(session_id: str) -> None:
     """
     assert True
 
+
 def reset_password_token(email: str) -> str:
     """
     Test reset_password_token method
     """
     assert True
+
 
 def update_password(email: str, reset_token: str, new_password: str) -> None:
     """
@@ -69,4 +77,3 @@ if __name__ == "__main__":
     reset_token = reset_password_token(EMAIL)
     update_password(EMAIL, reset_token, NEW_PASSWD)
     log_in(EMAIL, NEW_PASSWD)
-
